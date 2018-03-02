@@ -1,0 +1,15 @@
+
+Commandos:
+
+- Adicionar um arquivo ao hadoop
+hadoop fs -put [nome_arquivo_origem] [nome_arquivo_destino]
+
+- Renomear um arquivo
+hadoop fs -mv [nome_arquivo_origem] [nome_arquivo_destino]
+
+- Apagar um arquivo
+hadoop fs -rm [nome_arquivo]
+
+- Rodar scripts de mapper e reduer localmente
+cat [arquivo_dados] | python [mapper script] | sort | python [reducer script]
+
