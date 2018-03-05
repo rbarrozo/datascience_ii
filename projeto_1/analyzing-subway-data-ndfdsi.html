@@ -12374,8 +12374,8 @@ Para isso crie uma coluna chamada de EXITSn_hourly e insira a diferença entre a
     <span class="c1"># chama a funcao para calcular a diferenca entre os valores</span>
     <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn_hourly&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">set_EXITSn_hourly</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     
-    <span class="c1"># subistitui os valores nulos por 1</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn_hourly&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># subistitui os valores nulos por 0</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EXITSn_hourly&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     
     <span class="c1"># elimina a coluna auxiliar que foi usada para o calculo da diferenca</span>
     <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;EXITSn_Aux&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -12599,7 +12599,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -12623,7 +12623,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[8]:</div>
+<div class="prompt output_prompt">Out[1]:</div>
 
 
 
@@ -12819,7 +12819,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">num_rainy_days</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -12831,10 +12831,11 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
     <span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
     
     <span class="c1"># retorna a quantidade de registros encontrados</span>
-    <span class="n">num_rainy</span> <span class="o">=</span> <span class="n">df_filtered</span><span class="p">[</span><span class="s1">&#39;rain&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+    <span class="n">num_rainy</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_filtered</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;DATEn&#39;</span><span class="p">]))</span>
+    
     <span class="k">return</span> <span class="n">num_rainy</span>
 
-<span class="k">print</span> <span class="s1">&#39;A quantidade de dias chuvosos é = {:n}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_rainy_days</span><span class="p">(</span><span class="n">df_weather</span><span class="p">))</span>
+<span class="k">print</span> <span class="s2">&quot;A quantidade de dias chuvosos é = {:n}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_rainy_days</span><span class="p">(</span><span class="n">df_weather</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12851,7 +12852,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>A quantidade de dias chuvosos é = 44104.
+<pre>A quantidade de dias chuvosos é = 10
 </pre>
 </div>
 </div>
@@ -12872,7 +12873,7 @@ Nós complementamos para você este arquivo com os dados de clima de Nova Iorque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">max_temp_aggregate_by_fog</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -13338,7 +13339,7 @@ arS17QYAAAAASUVORK5CYII=
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong> Resposta </strong>:</p>
 <ul>
-<li>O tipo de distribuição é Obliqua Negativa</li>
+<li>O tipo de distribuição é Obliqua Positiva</li>
 <li>Sim, podemos observar que nos dias de chuva temos uma redução do número de entradas.</li>
 </ul>
 
